@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.base</groupId>
+        <artifactId>base-pom</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.base.commons</groupId>
+    <artifactId>commons-web</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <commons.lang.version>1.0-SNAPSHOT</commons.lang.version>
+        <commons.dynamic-value.version>1.0-SNAPSHOT</commons.dynamic-value.version>
+        <commons.monitor.version>1.0-SNAPSHOT</commons.monitor.version>
+        <commons.mq.version>1.0-SNAPSHOT</commons.mq.version>
+        <commons.db.version>1.0-SNAPSHOT</commons.db.version>
+        <commons.trace.version>1.0-SNAPSHOT</commons.trace.version>
+        <commons.multilevel-cache.version>1.0-SNAPSHOT</commons.multilevel-cache.version>
+        <commons.registry.version>1.0-SNAPSHOT</commons.registry.version>
+        <commons.schedule.version>1.0-SNAPSHOT</commons.schedule.version>
+
+        <mysql.connector.version>8.0.22</mysql.connector.version>
+        <mybatis.version>2.1.4</mybatis.version>
+        <alibaba.druid.version>1.2.4</alibaba.druid.version>
+
+        <apache.skywalking.version>8.2.0</apache.skywalking.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-dynamic-value</artifactId>
+            <version>${commons.dynamic-value.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-monitor</artifactId>
+            <version>${commons.monitor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-mq</artifactId>
+            <version>${commons.mq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-db</artifactId>
+            <version>${commons.db.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-trace</artifactId>
+            <version>${commons.trace.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-multilevel-cache</artifactId>
+            <version>${commons.multilevel-cache.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-registry</artifactId>
+            <version>${commons.registry.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-schedule</artifactId>
+            <version>${commons.schedule.version}</version>
+        </dependency>
+    </dependencies>
+</project>

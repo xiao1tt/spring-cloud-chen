@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_HOME" value="${log.dir:-./logs}"/>
+    <property name="DEFAULT_LOG_PATTERN"
+        value="[%tid][%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) %logger{0}:%L] %msg%n"/>
+    <property name="HTTP_LOG_PATTERN"
+        value="[%tid][%d{yyyy-MM-dd HH:mm:ss.SSS}] %msg%n"/>
+    <property name="MQ_LOG_PATTERN"
+        value="[%tid][%X{msgId}][%d{yyyy-MM-dd HH:mm:ss.SSS}] %msg%n"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${DEFAULT_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="asyncConsoleAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>25600</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="console"/>
+    </appender>
+
+    <!-- http request log -->
+    <appender name="requestAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/request.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/request.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${HTTP_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="asyncRequestAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>25600</queueSize>
+        <appender-ref ref="requestAppender"/>
+    </appender>
+
+    <!-- application log -->
+    <appender name="applicationAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/application.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${DEFAULT_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="asyncApplicationAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>25600</queueSize>
+        <appender-ref ref="applicationAppender"/>
+    </appender>
+
+    <!-- schedule log -->
+    <appender name="scheduleAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/schedule.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/schedule.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${DEFAULT_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="asyncScheduleAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>25600</queueSize>
+        <appender-ref ref="scheduleAppender"/>
+    </appender>
+
+    <appender name="dubboAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/dubbo.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/dubbo.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${DEFAULT_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="asyncDubboAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>25600</queueSize>
+        <appender-ref ref="dubboAppender"/>
+    </appender>
+
+    <appender name="mqAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/mq.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/mq.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${MQ_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="asyncMqAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>25600</queueSize>
+        <appender-ref ref="mqAppender"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="asyncConsoleAppender"/>
+    </root>
+
+    <logger name="com" level="INFO">
+        <appender-ref ref="asyncApplicationAppender"/>
+    </logger>
+
+    <logger name="com.chen.nozdormu" level="INFO" additivity="false">
+        <appender-ref ref="asyncScheduleAppender"/>
+    </logger>
+
+    <logger name="rocketmq" level="INFO" additivity="false">
+        <appender-ref ref="asyncMqAppender"/>
+    </logger>
+
+    <logger name="org.apache.rocketmq" level="INFO" additivity="false">
+        <appender-ref ref="asyncMqAppender"/>
+    </logger>
+
+    <logger name="dubbo" level="INFO" additivity="false">
+        <appender-ref ref="asyncDubboAppender"/>
+    </logger>
+
+    <logger name="org.apache.dubbo" level="INFO" additivity="false">
+        <appender-ref ref="asyncDubboAppender"/>
+    </logger>
+
+    <logger name="requestLog" level="INFO" additivity="false">
+        <appender-ref ref="asyncRequestAppender"/>
+    </logger>
+</configuration>

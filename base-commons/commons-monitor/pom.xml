@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.base</groupId>
+        <artifactId>base-pom</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.base.commons</groupId>
+    <artifactId>commons-monitor</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <commons.lang.version>1.0-SNAPSHOT</commons.lang.version>
+        <commons.registry.version>1.0-SNAPSHOT</commons.registry.version>
+
+        <prometheus.monitor.version>1.6.2</prometheus.monitor.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-registry</artifactId>
+            <version>${commons.registry.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- monitor -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>${prometheus.monitor.version}</version>
+        </dependency>
+
+        <!--        common-->
+        <dependency>
+            <groupId>com.base.commons</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+    </dependencies>
+</project>
